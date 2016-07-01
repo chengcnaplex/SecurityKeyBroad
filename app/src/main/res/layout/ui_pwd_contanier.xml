@@ -15,50 +15,95 @@
         android:orientation="horizontal">
         <!--放密码控件-->
         <RelativeLayout
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"></RelativeLayout>
-
-        <TextView style="@style/VerticalSeparationLineStyle" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/pwd_1"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <RelativeLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"></RelativeLayout>
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/pwd_2"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+        </RelativeLayout>
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <RelativeLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+            <ImageView
+                android:id="@+id/pwd_3"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <RelativeLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+            <ImageView
+                android:id="@+id/pwd_4"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+        </RelativeLayout>
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/pwd_5"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <RelativeLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+            <ImageView
+                android:id="@+id/pwd_6"
+                android:visibility="gone"
+                android:src="@drawable/dot"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
     </LinearLayout>

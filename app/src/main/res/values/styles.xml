@@ -39,6 +39,7 @@
     </style>
 
     <style name="KeyBroadBtnStyle">
+        <item name="android:textSize">22sp</item>
         <item name="android:background">@drawable/keybroad_btn_selector</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>

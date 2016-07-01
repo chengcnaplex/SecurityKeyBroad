@@ -13,18 +13,21 @@
         android:orientation="horizontal">
 
         <Button
+            android:text="@string/num_1"
             android:id="@+id/button1"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_2"
             android:id="@+id/button2"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_3"
             android:id="@+id/button3"
             style="@style/KeyBroadBtnStyle" />
     </LinearLayout>
@@ -36,18 +39,21 @@
         android:layout_height="60dp">
 
         <Button
+            android:text="@string/num_4"
             android:id="@+id/button4"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_5"
             android:id="@+id/button5"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_6"
             android:id="@+id/button6"
             style="@style/KeyBroadBtnStyle" />
 
@@ -61,18 +67,21 @@
         android:layout_height="60dp">
 
         <Button
+            android:text="@string/num_7"
             android:id="@+id/button7"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_8"
             android:id="@+id/button8"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_9"
             android:id="@+id/button9"
             style="@style/KeyBroadBtnStyle" />
     </LinearLayout>
@@ -92,17 +101,24 @@
         <TextView style="@style/VerticalSeparationLineStyle" />
 
         <Button
+            android:text="@string/num_0"
             android:id="@+id/button0"
             style="@style/KeyBroadBtnStyle" />
 
         <TextView style="@style/VerticalSeparationLineStyle" />
 
-        <Button
+        <LinearLayout
+            android:gravity="center"
             android:id="@+id/button_del"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#e3e7ee" />
+            android:background="#e3e7ee" >
+            <ImageView
+                android:src="@drawable/del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
 
