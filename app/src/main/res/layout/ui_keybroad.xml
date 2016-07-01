@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView style="@style/HorizontalSeparationLineStyle" />
+    <!--键盘第一行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/KeyBroadBtnStyle" />
+    </LinearLayout>
+
+    <TextView style="@style/HorizontalSeparationLineStyle" />
+    <!--键盘第二行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/button4"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button5"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/KeyBroadBtnStyle" />
+
+
+    </LinearLayout>
+
+    <TextView style="@style/HorizontalSeparationLineStyle" />
+    <!--键盘第三行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/button7"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button8"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button9"
+            style="@style/KeyBroadBtnStyle" />
+    </LinearLayout>
+
+    <TextView style="@style/HorizontalSeparationLineStyle" />        <!--键盘第四行-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/button_nothing"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#e3e7ee" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button0"
+            style="@style/KeyBroadBtnStyle" />
+
+        <TextView style="@style/VerticalSeparationLineStyle" />
+
+        <Button
+            android:id="@+id/button_del"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#e3e7ee" />
+    </LinearLayout>
+
+
+</LinearLayout>

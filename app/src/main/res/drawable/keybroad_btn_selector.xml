@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/keybroad_btn_selected" android:state_focused="true" />
+    <item android:drawable="@drawable/keybroad_btn_selected" android:state_pressed="true" />
+    <item android:drawable="@drawable/keybroad_btn_selected" android:state_selected="true" />
+
+    <item android:drawable="@drawable/keybroad_btn_normal"></item>
+    <!--android:state_pressed=["true" | "false"]//是否触摸-->
+    <!--android:state_focused=["true" | "false"]//是否获得焦点-->
+    <!--android:state_selected=["true" | "false"]//是否被状态-->
+</selector>

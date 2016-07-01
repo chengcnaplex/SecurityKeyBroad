@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.chengmengzhen.securitykeybroad.R;
 
@@ -19,7 +20,6 @@ public class SercurityDialog extends Dialog{
     public SercurityDialog(Context context) {
         super(context, R.style.SercurityDialogTheme);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,5 +43,12 @@ public class SercurityDialog extends Dialog{
         params.gravity = Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL;
         //设置dialog属性
         window.setAttributes(params);
+
+        initView();
+    }
+
+
+    private void initView() {
+//        findViewById()findViewById
     }
 }

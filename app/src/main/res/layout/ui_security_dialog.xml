@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:text="测试"/>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
+    <!--标题-->
+    <include layout="@layout/ui_title"/>
+
+    <!--分割线-->
+    <TextView
+        style="@style/HorizontalSeparationLineStyle"
+        android:background="#55555555"/>
+    <!--标题和密码的中间间隔-->
+    <FrameLayout
+        android:background="#f7f7f7"
+        android:layout_width="match_parent"
+        android:layout_height="30px">
+    </FrameLayout>
+
+    <!--密码框-->
+    <include layout="@layout/ui_pwd_contanier"/>
+    <!--键盘-->
+    <include layout="@layout/ui_keybroad"/>
 </LinearLayout>

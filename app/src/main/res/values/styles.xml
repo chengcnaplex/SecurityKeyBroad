@@ -25,4 +25,23 @@
         <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
         <item name="android:windowExitAnimation">@anim/input_method_exit</item>
     </style>
+
+    <style name="VerticalSeparationLineStyle">
+        <item name="android:background">#ebeef3</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="HorizontalSeparationLineStyle">
+        <item name="android:background">#ebeef3</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="KeyBroadBtnStyle">
+        <item name="android:background">@drawable/keybroad_btn_selector</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
 </resources>

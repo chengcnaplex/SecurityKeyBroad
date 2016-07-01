@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SecurityKeyBroad</string>
+    <string name="pwd">输入密码</string>
+    <string name="forgot_pwd">忘记密码？</string>
 </resources>
