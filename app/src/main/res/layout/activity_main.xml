@@ -10,6 +10,7 @@
     tools:context="com.example.chengmengzhen.securitykeybroad.MainActivity">
 
     <TextView
+        android:id="@+id/tv"
         android:onClick="click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

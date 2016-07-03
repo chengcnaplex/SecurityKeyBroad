@@ -1,10 +1,12 @@
 package com.example.chengmengzhen.securitykeybroad.view;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -13,8 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chengmengzhen.securitykeybroad.R;
+import com.example.chengmengzhen.securitykeybroad.jninative.JniEncode;
+import com.example.chengmengzhen.securitykeybroad.utils.DESCoding;
+import com.example.chengmengzhen.securitykeybroad.utils.Des;
+
+import java.util.Arrays;
 
 /**
  * Created by chengmengzhen on 16/6/30.
@@ -40,6 +48,7 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     private ImageView mPwdImg5;
     private ImageView mPwdImg6;
 
+    private TextView mTv;
 
     private int mPwdCountNum;
 
@@ -110,6 +119,7 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
         mPwdImg5 = (ImageView) findViewById(R.id.pwd_5);
         mPwdImg6 = (ImageView) findViewById(R.id.pwd_6);
 
+        //mTv = (TextView) ((Activity)getContext()).findViewById(R.id.tv);
     }
 
     private String mPassWord = "";
@@ -117,9 +127,12 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         //删除 如果输入密码个数是0 return ，要不就mPwdCountNum 减1
+        if (mPwdCountNum >= 6){
+            return;
+        }
         String PwdNum = "";
         if (view.getId() == R.id.button_del) {
-            if (mPwdCountNum == 0) {
+            if (mPwdCountNum == 0 ) {
                 return;
             } else {
                 mPwdCountNum = mPwdCountNum - 1;
@@ -131,14 +144,42 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
             inputPwd(view.getId());
             //
         }
+//        RunOnUI
         showPwdImg();
-        if (mPwdCountNum == 6 ){
+        if (mPwdCountNum == 6) {
             //加密密码
-            new Thread(){
+
+            new Thread() {
                 @Override
                 public void run() {
                     SystemClock.sleep(1000);
                     dismiss();
+                    Log.e("1",mPassWord);
+                    String[] pwdStrings = mPassWord.replace("[", "").replace("]", "").split(",");
+                    byte[] PwdBytes = new byte[pwdStrings.length];
+                    for (int i = 0; i < PwdBytes.length; i++) {
+                        PwdBytes[i] = Byte.valueOf(pwdStrings[i]);
+                    }
+                     String enPwd = JniEncode.encryption(PwdBytes);
+                    Log.e("1",enPwd);
+                    String[] split = enPwd.replace("[", "").replace("]", "").split(",");
+                    byte[] enPwdBytes = new byte[split.length];
+                    for (int i = 0; i < enPwdBytes.length; i++) {
+                        enPwdBytes[i] = Byte.valueOf(split[i].trim());
+                    }
+
+                    byte[] key = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+                    final byte[] deSedes = new DESCoding().decode(enPwdBytes, key, "DESede");
+                    try {
+                        //mTv.setText(enPwd);
+                        Log.e("111", Arrays.toString(deSedes));
+
+
+                        Log.e("111", "1111");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }.start();
 
@@ -148,7 +189,9 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
 
 
     private void inputPwd(int id) {
-
+        if (mPwdCountNum > 1) {
+            mPassWord = mPassWord + ",";
+        }
         switch (id) {
             case R.id.button0:
                 mPassWord = mPassWord + "0";
@@ -186,24 +229,32 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
 
 
     private void showPwdImg() {
-        switch (mPwdCountNum){
-            case 0 : allHidden();
+        switch (mPwdCountNum) {
+            case 0:
+                allHidden();
                 break;
-            case 1 : showOne();
+            case 1:
+                showOne();
                 break;
-            case 2 : showTwo();
+            case 2:
+                showTwo();
                 break;
-            case 3 : showThree();
+            case 3:
+                showThree();
                 break;
-            case 4 : showFour();
+            case 4:
+                showFour();
                 break;
-            case 5 : showFive();
+            case 5:
+                showFive();
                 break;
-            case 6 : showSix();
+            case 6:
+                showSix();
                 break;
 
         }
     }
+
     private void showSix() {
         mPwdImg1.setVisibility(View.VISIBLE);
         mPwdImg2.setVisibility(View.VISIBLE);
@@ -212,6 +263,7 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
         mPwdImg5.setVisibility(View.VISIBLE);
         mPwdImg6.setVisibility(View.VISIBLE);
     }
+
     private void showFive() {
         mPwdImg1.setVisibility(View.VISIBLE);
         mPwdImg2.setVisibility(View.VISIBLE);
