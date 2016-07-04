@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chengmengzhen.securitykeybroad.BaseApplication;
 import com.example.chengmengzhen.securitykeybroad.R;
 import com.example.chengmengzhen.securitykeybroad.jninative.JniEncode;
 import com.example.chengmengzhen.securitykeybroad.utils.DESCoding;
@@ -51,7 +52,13 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     private TextView mTv;
 
     private int mPwdCountNum;
-
+    private InputCompleteListener mInputCompleteListener;
+    public interface InputCompleteListener{
+        public void inputComplete(String passWord);
+    }
+    public void setOnInputCompleteListener(InputCompleteListener inputCompleteListener){
+        this.mInputCompleteListener = inputCompleteListener;
+    }
     public SercurityDialog(Context context) {
         super(context, R.style.SercurityDialogTheme);
     }
@@ -126,59 +133,42 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        //删除 如果输入密码个数是0 return ，要不就mPwdCountNum 减1
+
         if (mPwdCountNum >= 6){
             return;
         }
         String PwdNum = "";
+        //删除 如果输入密码个数是0 return ，要不就mPwdCountNum 减1
         if (view.getId() == R.id.button_del) {
             if (mPwdCountNum == 0 ) {
                 return;
             } else {
                 mPwdCountNum = mPwdCountNum - 1;
+                showPwdImg();
             }
         }
         //
         else {
             mPwdCountNum++;
+            showPwdImg();
             inputPwd(view.getId());
             //
         }
 //        RunOnUI
-        showPwdImg();
         if (mPwdCountNum == 6) {
             //加密密码
-
             new Thread() {
                 @Override
                 public void run() {
-                    SystemClock.sleep(1000);
+                    SystemClock.sleep(100);
                     dismiss();
-                    Log.e("1",mPassWord);
-                    String[] pwdStrings = mPassWord.replace("[", "").replace("]", "").split(",");
-                    byte[] PwdBytes = new byte[pwdStrings.length];
-                    for (int i = 0; i < PwdBytes.length; i++) {
-                        PwdBytes[i] = Byte.valueOf(pwdStrings[i]);
-                    }
-                     String enPwd = JniEncode.encryption(PwdBytes);
-                    Log.e("1",enPwd);
-                    String[] split = enPwd.replace("[", "").replace("]", "").split(",");
-                    byte[] enPwdBytes = new byte[split.length];
-                    for (int i = 0; i < enPwdBytes.length; i++) {
-                        enPwdBytes[i] = Byte.valueOf(split[i].trim());
-                    }
-
-                    byte[] key = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-                    final byte[] deSedes = new DESCoding().decode(enPwdBytes, key, "DESede");
-                    try {
-                        //mTv.setText(enPwd);
-                        Log.e("111", Arrays.toString(deSedes));
-
-
-                        Log.e("111", "1111");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (mInputCompleteListener != null) {
+                        BaseApplication.getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mInputCompleteListener.inputComplete(mPassWord);
+                            }
+                        });
                     }
                 }
             }.start();
