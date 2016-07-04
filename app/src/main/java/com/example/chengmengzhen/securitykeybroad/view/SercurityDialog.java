@@ -53,12 +53,15 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
 
     private int mPwdCountNum;
     private InputCompleteListener mInputCompleteListener;
-    public interface InputCompleteListener{
+
+    public interface InputCompleteListener {
         public void inputComplete(String passWord);
     }
-    public void setOnInputCompleteListener(InputCompleteListener inputCompleteListener){
+
+    public void setOnInputCompleteListener(InputCompleteListener inputCompleteListener) {
         this.mInputCompleteListener = inputCompleteListener;
     }
+
     public SercurityDialog(Context context) {
         super(context, R.style.SercurityDialogTheme);
     }
@@ -134,16 +137,21 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (mPwdCountNum >= 6){
+        if (mPwdCountNum >= 6) {
             return;
         }
         String PwdNum = "";
         //删除 如果输入密码个数是0 return ，要不就mPwdCountNum 减1
         if (view.getId() == R.id.button_del) {
-            if (mPwdCountNum == 0 ) {
+            if (mPwdCountNum == 0) {
                 return;
             } else {
                 mPwdCountNum = mPwdCountNum - 1;
+                if (mPwdCountNum == 0){
+                    mPassWord = mPassWord.substring(0,0);
+                }else {
+                    mPassWord = mPassWord.substring(0,mPassWord.length()-2);
+                }
                 showPwdImg();
             }
         }
