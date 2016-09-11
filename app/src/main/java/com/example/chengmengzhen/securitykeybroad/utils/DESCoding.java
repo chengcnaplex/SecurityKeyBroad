@@ -10,62 +10,21 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-//import org.apache.log4j.Logger;
-
 /**
  * 加密算法
  *
  * @author
  */
 public class DESCoding {
-//private static Logger logger = Logger.getLogger(DESCoding.class);
 
     private static String mAlgorithm = "DESede"; //定义 加密算法，默认为DESede
     private byte[] keyBytes = null;
-//
-//    /**
-//     * 用默认的算法DESede，传入密钥，生成工具类
-//     * @param keyBytes     密钥，必须是24字节
-//     * @throws Exception
-//     */
-//    public DESCoding(byte[] keyBytes) throws Exception
-//    {
-//        if(keyBytes.length != 24)
-//        {
-//            throw new Exception("the keys's length must be 24!");
-//        }
-//        this.keyBytes = keyBytes;
-//    }
 
     private static String trimAlgorithm(String alg) {
         int p = alg.indexOf('/');
         if (p == -1)
             return alg;
         return alg.substring(0, p);
-    }
-
-    //    /**
-//     * 用指定的算法，传入加密的key，生成工具类
-//     * @param keyBytes     密钥，必须是24字节
-//     * @param Algorithm    算法
-//     * @throws Exception
-//     */
-//    public DESCoding(byte[] keyBytes, String Algorithm) throws Exception
-//    {
-//        if(keyBytes.length != 24)
-//        {
-//            throw new Exception("the keys's length must be 24!");
-//        }
-//        this.keyBytes = keyBytes;
-//        this.Algorithm = Algorithm;
-//    }
-    public static void test() {
-        Log.e("JNILOG", "11");
-        Log.e("JNILOG", "11");
-        Log.e("JNILOG", "11");
-        Log.e("JNILOG", "11");
-        Log.e("JNILOG", "11");
-        Log.e("JNILOG", "11");
     }
 
     /**

@@ -12,6 +12,7 @@
     <TextView
         style="@style/HorizontalSeparationLineStyle"
         android:background="#55555555"/>
+
     <!--标题和密码的中间间隔-->
     <FrameLayout
         android:background="#f7f7f7"

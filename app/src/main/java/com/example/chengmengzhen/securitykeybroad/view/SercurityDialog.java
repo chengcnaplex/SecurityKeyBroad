@@ -1,12 +1,10 @@
 package com.example.chengmengzhen.securitykeybroad.view;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -15,21 +13,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.chengmengzhen.securitykeybroad.BaseApplication;
 import com.example.chengmengzhen.securitykeybroad.R;
-import com.example.chengmengzhen.securitykeybroad.jninative.JniEncode;
-import com.example.chengmengzhen.securitykeybroad.utils.DESCoding;
-import com.example.chengmengzhen.securitykeybroad.utils.Des;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Created by chengmengzhen on 16/6/30.
  */
 public class SercurityDialog extends Dialog implements View.OnClickListener {
-    private View mRootView;
+    /**
+     * 0-9,数字按钮
+     */
     private Button mNum1;
     private Button mNum2;
     private Button mNum3;
@@ -42,6 +38,7 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     private Button mNum0;
     private LinearLayout mDelPwd;
 
+    private ArrayList<ImageView> mPwdImgs = new ArrayList<ImageView>();
     private ImageView mPwdImg1;
     private ImageView mPwdImg2;
     private ImageView mPwdImg3;
@@ -121,15 +118,20 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
         mNum8 = (Button) findViewById(R.id.button8);
         mNum9 = (Button) findViewById(R.id.button9);
         mDelPwd = (LinearLayout) findViewById(R.id.button_del);
-//        findViewById()findViewById
+
         mPwdImg1 = (ImageView) findViewById(R.id.pwd_1);
         mPwdImg2 = (ImageView) findViewById(R.id.pwd_2);
         mPwdImg3 = (ImageView) findViewById(R.id.pwd_3);
         mPwdImg4 = (ImageView) findViewById(R.id.pwd_4);
         mPwdImg5 = (ImageView) findViewById(R.id.pwd_5);
         mPwdImg6 = (ImageView) findViewById(R.id.pwd_6);
+        mPwdImgs.add(mPwdImg1);
+        mPwdImgs.add(mPwdImg2);
+        mPwdImgs.add(mPwdImg3);
+        mPwdImgs.add(mPwdImg4);
+        mPwdImgs.add(mPwdImg5);
+        mPwdImgs.add(mPwdImg6);
 
-        //mTv = (TextView) ((Activity)getContext()).findViewById(R.id.tv);
     }
 
     private String mPassWord = "";
@@ -137,39 +139,44 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (mPwdCountNum >= 6) {
-            return;
-        }
-        String PwdNum = "";
         //删除 如果输入密码个数是0 return ，要不就mPwdCountNum 减1
         if (view.getId() == R.id.button_del) {
             if (mPwdCountNum == 0) {
                 return;
             } else {
                 mPwdCountNum = mPwdCountNum - 1;
+
                 if (mPwdCountNum == 0){
                     mPassWord = mPassWord.substring(0,0);
                 }else {
+                    // 这里-2的原因是因为数字之间有一个逗号，逗号+数字=2
                     mPassWord = mPassWord.substring(0,mPassWord.length()-2);
                 }
-                showPwdImg();
+
+                showPwdImages(mPwdCountNum);
             }
         }
         //
         else {
             mPwdCountNum++;
-            showPwdImg();
-            inputPwd(view.getId());
-            //
+            showPwdImages(mPwdCountNum);
+            inputPwd(view);
         }
-//        RunOnUI
-        if (mPwdCountNum == 6) {
-            //加密密码
+
+        /**
+         * 当统计的当前输入的密码位数大于等于6，表示输入完成，数据处理在UI线程中处理
+         */
+        if (mPwdCountNum >= 6) {
+            /**
+             * 开启一个线程，将密码数字传送给UI线程去加密
+             */
             new Thread() {
                 @Override
                 public void run() {
                     SystemClock.sleep(100);
-                    dismiss();
+                    dismiss();              // 关闭对话框
+
+                    // 让BaseApplication中的Handler来处理密码加密
                     if (mInputCompleteListener != null) {
                         BaseApplication.getHandler().post(new Runnable() {
                             @Override
@@ -182,138 +189,35 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
             }.start();
 
         }
-//        输入完成
     }
 
-
-    private void inputPwd(int id) {
+    /**
+     * 通过获取Button上的数字字符来合成字符串
+     *
+     * @param view
+     */
+    private void inputPwd(View view) {
         if (mPwdCountNum > 1) {
             mPassWord = mPassWord + ",";
         }
-        switch (id) {
-            case R.id.button0:
-                mPassWord = mPassWord + "0";
-                break;
-            case R.id.button1:
-                mPassWord = mPassWord + "1";
-                break;
-            case R.id.button2:
-                mPassWord = mPassWord + "2";
-                break;
-            case R.id.button3:
-                mPassWord = mPassWord + "3";
-                break;
-            case R.id.button4:
-                mPassWord = mPassWord + "4";
-                break;
-            case R.id.button5:
-                mPassWord = mPassWord + "5";
-                break;
-            case R.id.button6:
-                mPassWord = mPassWord + "6";
-                break;
-            case R.id.button7:
-                mPassWord = mPassWord + "7";
-                break;
-            case R.id.button8:
-                mPassWord = mPassWord + "8";
-                break;
-            case R.id.button9:
-                mPassWord = mPassWord + "9";
-                break;
 
+        mPassWord += ((Button)view).getText();
+    }
+
+    /**
+     * 根据传入的参数来设置显示的密码的图片张数
+     *
+     * @param pwdCountNum
+     */
+    private void showPwdImages(int pwdCountNum) {
+
+        for(int i = 0; i < mPwdImgs.size(); i++) {
+            if(i < pwdCountNum) {
+                mPwdImgs.get(i).setVisibility(View.VISIBLE);
+            } else {
+                mPwdImgs.get(i).setVisibility(View.GONE);
+            }
         }
     }
 
-
-    private void showPwdImg() {
-        switch (mPwdCountNum) {
-            case 0:
-                allHidden();
-                break;
-            case 1:
-                showOne();
-                break;
-            case 2:
-                showTwo();
-                break;
-            case 3:
-                showThree();
-                break;
-            case 4:
-                showFour();
-                break;
-            case 5:
-                showFive();
-                break;
-            case 6:
-                showSix();
-                break;
-
-        }
-    }
-
-    private void showSix() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.VISIBLE);
-        mPwdImg3.setVisibility(View.VISIBLE);
-        mPwdImg4.setVisibility(View.VISIBLE);
-        mPwdImg5.setVisibility(View.VISIBLE);
-        mPwdImg6.setVisibility(View.VISIBLE);
-    }
-
-    private void showFive() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.VISIBLE);
-        mPwdImg3.setVisibility(View.VISIBLE);
-        mPwdImg4.setVisibility(View.VISIBLE);
-        mPwdImg5.setVisibility(View.VISIBLE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
-
-    private void showFour() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.VISIBLE);
-        mPwdImg3.setVisibility(View.VISIBLE);
-        mPwdImg4.setVisibility(View.VISIBLE);
-        mPwdImg5.setVisibility(View.GONE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
-
-    private void showThree() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.VISIBLE);
-        mPwdImg3.setVisibility(View.VISIBLE);
-        mPwdImg4.setVisibility(View.GONE);
-        mPwdImg5.setVisibility(View.GONE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
-
-    private void showTwo() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.VISIBLE);
-        mPwdImg3.setVisibility(View.GONE);
-        mPwdImg4.setVisibility(View.GONE);
-        mPwdImg5.setVisibility(View.GONE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
-
-    private void showOne() {
-        mPwdImg1.setVisibility(View.VISIBLE);
-        mPwdImg2.setVisibility(View.GONE);
-        mPwdImg3.setVisibility(View.GONE);
-        mPwdImg4.setVisibility(View.GONE);
-        mPwdImg5.setVisibility(View.GONE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
-
-
-    private void allHidden() {
-        mPwdImg1.setVisibility(View.GONE);
-        mPwdImg2.setVisibility(View.GONE);
-        mPwdImg3.setVisibility(View.GONE);
-        mPwdImg4.setVisibility(View.GONE);
-        mPwdImg5.setVisibility(View.GONE);
-        mPwdImg6.setVisibility(View.GONE);
-    }
 }

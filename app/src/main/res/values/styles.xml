@@ -21,6 +21,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowAnimationStyle">@style/SercurityAnimation</item>
     </style>
+
     <style name="SercurityAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
         <item name="android:windowExitAnimation">@anim/input_method_exit</item>
