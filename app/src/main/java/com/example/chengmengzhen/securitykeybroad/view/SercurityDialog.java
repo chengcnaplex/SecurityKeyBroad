@@ -117,6 +117,20 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
         mNum7 = (Button) findViewById(R.id.button7);
         mNum8 = (Button) findViewById(R.id.button8);
         mNum9 = (Button) findViewById(R.id.button9);
+        //洗牌
+        int[] num = new int[]{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        shuffleSort(num);
+        mNum0.setText(String.valueOf(num[0]));
+        mNum1.setText(String.valueOf(num[1]));
+        mNum2.setText(String.valueOf(num[2]));
+        mNum3.setText(String.valueOf(num[3]));
+        mNum4.setText(String.valueOf(num[4]));
+        mNum5.setText(String.valueOf(num[5]));
+        mNum6.setText(String.valueOf(num[6]));
+        mNum7.setText(String.valueOf(num[7]));
+        mNum8.setText(String.valueOf(num[8]));
+        mNum9.setText(String.valueOf(num[9]));
+
         mDelPwd = (LinearLayout) findViewById(R.id.button_del);
 
         mPwdImg1 = (ImageView) findViewById(R.id.pwd_1);
@@ -132,6 +146,23 @@ public class SercurityDialog extends Dialog implements View.OnClickListener {
         mPwdImgs.add(mPwdImg5);
         mPwdImgs.add(mPwdImg6);
 
+    }
+
+    //洗牌算法
+    private void shuffleSort(int[] data) {
+        for (int i = 0; i < data.length - 1; i++) {
+            int j = (int) (data.length * Math.random());
+            swap(data, i, j);
+        }
+    }
+
+    private void swap(int[] data, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        data[i] = data[i] + data[j];
+        data[j] = data[i] - data[j];
+        data[i] = data[i] - data[j];
     }
 
     private String mPassWord = "";
